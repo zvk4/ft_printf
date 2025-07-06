@@ -6,7 +6,7 @@
 /*   By: zkarali <zkarali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 13:36:25 by zkarali           #+#    #+#             */
-/*   Updated: 2025/07/06 15:00:23 by zkarali          ###   ########.fr       */
+/*   Updated: 2025/07/06 18:14:04 by zkarali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,31 @@ int	ft_hex(unsigned int n, char c)
 int	ft_pointer(void *p)
 {
 	int				i;
-	unsigned long	ptr;
+	int j;
+	int len;
+	unsigned long ptr;
+	char buffer[16];
+	char hex_digits[] = "0123456789abcdef";
 
 	i = 0;
+	len = 0;
 	ptr = (unsigned long)p;
-	i += write(1, "0x", 2);
-	i += ft_hex(ptr, 'x');
-	return (i);
+	if (!ptr)
+	{	
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	len += write(1, "0x", 2);
+	while (ptr > 0)
+	{
+		buffer[i++] = hex_digits[ptr % 16];
+		ptr /= 16;
+	}
+	j = i - 1;
+	while (j >= 0)
+	{
+		len += write(1, &buffer[j], 1);
+		j--;
+	}
+	return (len);
 }
