@@ -6,16 +6,11 @@
 /*   By: zkarali <zkarali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 13:36:25 by zkarali           #+#    #+#             */
-/*   Updated: 2025/07/06 18:14:04 by zkarali          ###   ########.fr       */
+/*   Updated: 2025/07/06 18:51:32 by zkarali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_char(char c)
-{
-	return (write(1, &c, 1));
-}
 
 int	ft_str(char *s)
 {
@@ -93,11 +88,9 @@ int	ft_hex(unsigned int n, char c)
 int	ft_pointer(void *p)
 {
 	int				i;
-	int j;
-	int len;
-	unsigned long ptr;
-	char buffer[16];
-	char hex_digits[] = "0123456789abcdef";
+	int				len;
+	unsigned long	ptr;
+	char			hex[16];
 
 	i = 0;
 	len = 0;
@@ -108,16 +101,12 @@ int	ft_pointer(void *p)
 		return (5);
 	}
 	len += write(1, "0x", 2);
-	while (ptr > 0)
+	while (ptr)
 	{
-		buffer[i++] = hex_digits[ptr % 16];
+		hex[i++] = "0123456789abcdef"[ptr % 16];
 		ptr /= 16;
 	}
-	j = i - 1;
-	while (j >= 0)
-	{
-		len += write(1, &buffer[j], 1);
-		j--;
-	}
+	while (--i >= 0)
+		len += write(1, &hex[i], 1);
 	return (len);
 }

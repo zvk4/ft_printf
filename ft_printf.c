@@ -6,11 +6,16 @@
 /*   By: zkarali <zkarali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:30:15 by zkarali           #+#    #+#             */
-/*   Updated: 2025/07/06 14:52:14 by zkarali          ###   ########.fr       */
+/*   Updated: 2025/07/06 18:44:57 by zkarali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_char(char c)
+{
+	return (write(1, &c, 1));
+}
 
 int	ft_printf(const char *format, ...)
 {
